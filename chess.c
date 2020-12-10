@@ -16,6 +16,8 @@ int main(){
     return 0;
 }
 
+void input(){
+}
 void print_board(){
     int i,j;
     printf("_________________\n");
