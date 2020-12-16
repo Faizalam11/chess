@@ -3,4 +3,5 @@ struct pos{
     int y;
 };
 void print_board();
-void move(int x1, int y1, int x2, int y2, int pl);
+void move(struct pos p1, struct pos p2, int pl);
+int game_input(int pl);
