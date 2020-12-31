@@ -59,14 +59,14 @@ void move(struct pos p1, struct pos p2, int pl){
 
 void print_board(){
     int i,j;
-    printf("_________________\n");
+    printf("_______\n");
     for (i=0;i<8;i++){
         printf("|");
         for (j=0;j<8;j++)
             printf("%c|",board[i][j]);
         printf("\n");
     }
-    printf("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n");
+    printf("â€¾â€¾â€¾â€¾â€¾â€¾â€¾â€¾â€¾â€¾â€¾â€¾â€¾â€¾â€¾â€¾â€¾\n");
 }
 
 int chkmove(struct pos p1, struct pos p2, int pl){
@@ -85,23 +85,53 @@ int chkmove(struct pos p1, struct pos p2, int pl){
     switch(src){
         case 'r':
         case 'R':
+        	if ((p1.x!=p2.x)&&(p1.y!=p2.y))
+        		return 1;
             break;
         case 'b':
         case 'B':
+        	if ((p2.x-p1.x)!=(p2.y-p1.y))
+        	    return 1;
             break;
         case 'n':
         case 'N':
+        	if (((abs(p1.x-p2.x)+abs(p1.y-p2.y))!=3)||((abs(p1.x-p2.x)>2)||(abs(p1.y-p2.y)>2)))
+        	    return 1;
             break;
         case 'q':
         case 'Q':
+        	if (((p1.x!=p2.x)&&(p1.y!=p2.y))||((p2.x-p1.x)!=(p2.y-p1.y)))
             break;
         case 'k':
         case 'K':
+        	if ((((p1.x-1)<p2.x)||((p1.x+1)>p2.x))||(((p1.y-1)<p2.y)||((p1.y+1)<p2.y)))
+        		return 1;
             break;
         case 'p':
         case 'P':
+        	if (pl==1){
+        	    if (p1.x==6){
+        	    	if (((p1.y!=p2.y)||(p1.x>=p2.x))||((p1.x-p2.x)>2))
+        	        	return 1;
+        	    }
+        	    else if (((p1.y!=p2.y)||(p1.x>=p2.x))||((p1.x-p2.x)>1))
+        	        return 1;
+        	}
+        	else if (pl==2){
+        	    if (p1.x==2){
+        	    	if (((p1.y!=p2.y)||(p1.x<=p2.x))||((p2.x-p1.x)>2))
+        	        	return 1;
+        	    }
+        	    else if (((p1.y!=p2.y)||(p1.x<=p2.x))||((p2.x-p1.x)>1))
+        	        return 1;
+            }
             break;
-
     }
     return 0;
+}
+
+int abs(int n){
+	if (n<0)
+	    n = -1 * n;
+    return n; 
 }
